@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IInventoryManager extends Remote {
     void registrarProducto(ProductoDTO producto) throws RemoteException;
-    List<ProductoDTO> consultarInventario(String sucursal) throws RemoteException;
+
+    List<ProductoDTO> consultarInventario(int idSucursal) throws RemoteException;
+
+
 }

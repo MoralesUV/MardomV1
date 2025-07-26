@@ -1,20 +1,26 @@
 package serverA;
 
 import common.IInventoryManager;
-import common.IVentaManager;
+import common.ProductoDTO;
 
 import java.rmi.Naming;
+
 import java.rmi.registry.LocateRegistry;
 
 public class Servidor {
     public static void main(String[] args) {
         try {
+            // Levanta el registro RMI en el puerto 1099
             LocateRegistry.createRegistry(1099);
+
+            // Crea la instancia del objeto remoto
+            //IInventoryManager inv = (IInventoryManager) Naming.lookup("//localhost:1100/InventoryManager");
             IInventoryManager inv = new InventoryManagerImpl();
-            IVentaManager venta = new VentaManagerImpl();
-            Naming.rebind("rmi://localhost:1099/InventoryManager", inv);
-            Naming.rebind("rmi://localhost:1099/VentaManager", venta);
-            System.out.println("Servidor RMI listo en puerto 1099.");
+
+            // Publica el objeto remoto con el nombre "InventoryManager"
+            Naming.rebind("InventoryManager", inv);
+
+            System.out.println("✔ Servidor A levantado y objeto InventoryManager publicado.");
         } catch (Exception e) {
             e.printStackTrace();
         }
